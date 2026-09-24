@@ -1,0 +1,41 @@
+# LangChain
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+
+# LLM / API integrations
+langchain-mistralai
+langchain-google-genai
+mistralai
+google-generativeai
+
+# Environment variables
+python-dotenv
+
+# Vector database
+faiss-cpu
+
+# Document loading
+pypdf
+
+# Embeddings / ML utilities
+sentence-transformers
+numpy
+
+# Web/API
+requests
+httpx
+
+# Data validation
+pydantic
+
+# Optional: Web UI
+streamlit
+
+# Optional: API/backend
+fastapi
+uvicorn
+
+# Optional: HTTP multipart/file handling
+python-multipart
