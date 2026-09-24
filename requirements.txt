@@ -1,0 +1,24 @@
+# LangChain
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+
+# LLM / API integrations
+langchain-google-genai
+google-generativeai
+
+# Environment variables
+python-dotenv
+
+# Vector database
+chromadb
+
+# Document loading
+pypdf
+
+# Data validation
+pydantic
+
+# Web UI
+streamlit
