@@ -15,8 +15,9 @@ load_dotenv()
 
 # On Streamlit Community Cloud there is no .env file; secrets come from st.secrets.
 # Inject them into os.environ so LangChain picks them up the same way in both environments.
-if "GOOGLE_API_KEY" in st.secrets:
-    os.environ.setdefault("GOOGLE_API_KEY", st.secrets["GOOGLE_API_KEY"])
+_api_key = st.secrets.get("GOOGLE_API_KEY") or os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
+if _api_key:
+    os.environ["GOOGLE_API_KEY"] = _api_key
 
 EMBEDDING_MODEL = "gemini-embedding-2"
 CHAT_MODEL = "gemini-3.6-flash"
@@ -54,15 +55,28 @@ Question:
 )
 
 
+def _get_api_key() -> str:
+    """Resolve the Google API key from st.secrets or environment."""
+    key = st.secrets.get("GOOGLE_API_KEY") or os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
+    if not key:
+        st.error(
+            "Google API key not found. "
+            "Set **GOOGLE_API_KEY** in your `.env` file (local) "
+            "or in **App settings → Secrets** on Streamlit Cloud."
+        )
+        st.stop()
+    return key
+
+
 # ---------- cached models ----------
 @st.cache_resource
 def get_embeddings():
-    return GoogleGenerativeAIEmbeddings(model=EMBEDDING_MODEL)
+    return GoogleGenerativeAIEmbeddings(model=EMBEDDING_MODEL, google_api_key=_get_api_key())
 
 
 @st.cache_resource
 def get_llm():
-    return ChatGoogleGenerativeAI(model=CHAT_MODEL)
+    return ChatGoogleGenerativeAI(model=CHAT_MODEL, google_api_key=_get_api_key())
 
 
 # ---------- helpers ----------
