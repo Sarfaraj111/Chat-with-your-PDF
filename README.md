@@ -120,6 +120,3 @@ Check the terminal running `streamlit run` for the actual error. Most often it's
 - Multiple PDFs in one chat
 - Support for other file types (DOCX, TXT, web pages)
 
-## 📄 License
-
-Add a license of your choice (for example MIT) if you'd like others to reuse this project.
